@@ -33,11 +33,14 @@ namespace OpenERPOutlookPlugin
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_select_partner));
             this.txt_select_partner = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.lstbox_select_partner = new System.Windows.Forms.ListBox();
+            this.partnerGrid = new System.Windows.Forms.DataGridView();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btn_select_partner_select = new System.Windows.Forms.Button();
             this.btn_select_partner_close = new System.Windows.Forms.Button();
             this.btn_select_partner_search = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.partnerGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // txt_select_partner
@@ -49,7 +52,7 @@ namespace OpenERPOutlookPlugin
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.lstbox_select_partner);
+            this.groupBox1.Controls.Add(this.partnerGrid);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(13, 51);
             this.groupBox1.Name = "groupBox1";
@@ -58,14 +61,29 @@ namespace OpenERPOutlookPlugin
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Partner Name";
             // 
-            // lstbox_select_partner
+            // partnerGrid
             // 
-            this.lstbox_select_partner.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lstbox_select_partner.FormattingEnabled = true;
-            this.lstbox_select_partner.Location = new System.Drawing.Point(6, 27);
-            this.lstbox_select_partner.Name = "lstbox_select_partner";
-            this.lstbox_select_partner.Size = new System.Drawing.Size(295, 329);
-            this.lstbox_select_partner.TabIndex = 4;
+            this.partnerGrid.AllowUserToAddRows = false;
+            this.partnerGrid.AllowUserToDeleteRows = false;
+            this.partnerGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.partnerGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.id,
+            this.name});
+            this.partnerGrid.Location = new System.Drawing.Point(6, 19);
+            this.partnerGrid.MultiSelect = false;
+            this.partnerGrid.Name = "partnerGrid";
+            this.partnerGrid.Size = new System.Drawing.Size(295, 343);
+            this.partnerGrid.TabIndex = 5;
+            // 
+            // id
+            // 
+            this.id.HeaderText = "Id";
+            this.id.Name = "id";
+            // 
+            // name
+            // 
+            this.name.HeaderText = "Name";
+            this.name.Name = "name";
             // 
             // btn_select_partner_select
             // 
@@ -79,30 +97,7 @@ namespace OpenERPOutlookPlugin
             this.btn_select_partner_select.Text = "&Link";
             this.btn_select_partner_select.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.btn_select_partner_select.UseVisualStyleBackColor = true;
-            this.btn_select_partner_select.Click += new System.EventHandler((sender, e) =>
-            {
-                try
-                {
-                    if (this.lstbox_select_partner.SelectedItem == null)
-                    {
-                        throw new Exception("Please select a partner from the list.");
-                    }
-                    else
-                    {
-                        this.txt_select_partner.Text = this.lstbox_select_partner.SelectedItem.ToString();
-                        int partner_id = (int)Cache.OpenERPOutlookPlugin.CreatePartnerRecord(this.lstbox_select_partner.SelectedItem.ToString());
-                        foreach (NetOffice.OutlookApi.MailItem mailItem in Tools.MailItems())
-                        {
-                            Cache.OpenERPOutlookPlugin.CreateContactRecord(partner_id, mailItem.SenderName, mailItem.SenderEmailAddress);
-                        }
-                        this.Close();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Connect.handleException(ex);
-                }
-            });
+            this.btn_select_partner_select.Click += new System.EventHandler(this.btn_link_to_partner_click);
             // 
             // btn_select_partner_close
             // 
@@ -147,8 +142,8 @@ namespace OpenERPOutlookPlugin
             this.MaximizeBox = false;
             this.Name = "frm_select_partner";
             this.Text = "Select Partner";
-            this.Load += new System.EventHandler(this.frm_select_partner_Load);
             this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.partnerGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -161,6 +156,8 @@ namespace OpenERPOutlookPlugin
         private System.Windows.Forms.Button btn_select_partner_close;
         private System.Windows.Forms.Button btn_select_partner_select;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ListBox lstbox_select_partner;
+        private System.Windows.Forms.DataGridView partnerGrid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn name;
     }
 }

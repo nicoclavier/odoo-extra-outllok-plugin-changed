@@ -1,0 +1,7 @@
+C:\Users\nicoclavier\Source\Repos\odoo-extra-outllok-plugin-changed\plugin_outlook\static\openerp-outlook-plugin\OpenERPClient\bin\Debug\OpenERPClient.dll
+C:\Users\nicoclavier\Source\Repos\odoo-extra-outllok-plugin-changed\plugin_outlook\static\openerp-outlook-plugin\OpenERPClient\bin\Debug\OpenERPClient.pdb
+C:\Users\nicoclavier\Source\Repos\odoo-extra-outllok-plugin-changed\plugin_outlook\static\openerp-outlook-plugin\OpenERPClient\bin\Debug\CookComputing.XmlRpcV2.dll
+C:\Users\nicoclavier\Source\Repos\odoo-extra-outllok-plugin-changed\plugin_outlook\static\openerp-outlook-plugin\OpenERPClient\obj\Debug\OpenERPClient.dll
+C:\Users\nicoclavier\Source\Repos\odoo-extra-outllok-plugin-changed\plugin_outlook\static\openerp-outlook-plugin\OpenERPClient\obj\Debug\OpenERPClient.pdb
+C:\Users\nicoclavier\Source\Repos\odoo-extra-outllok-plugin-changed\plugin_outlook\static\openerp-outlook-plugin\OpenERPClient\bin\Debug\OpenERPClient.dll.CodeAnalysisLog.xml
+C:\Users\nicoclavier\Source\Repos\odoo-extra-outllok-plugin-changed\plugin_outlook\static\openerp-outlook-plugin\OpenERPClient\bin\Debug\OpenERPClient.dll.lastcodeanalysissucceeded

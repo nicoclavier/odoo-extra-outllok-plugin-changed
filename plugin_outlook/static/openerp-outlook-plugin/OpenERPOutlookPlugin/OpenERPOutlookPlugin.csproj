@@ -38,7 +38,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <Optimize>false</Optimize>
-    <OutputPath>.\bin\Debug\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <WarningLevel>4</WarningLevel>
@@ -215,6 +215,7 @@
     <None Include="Resources\195737_152643643962_3595480_n.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="NetOffice.OutlookSecurity.dll" />
     <Content Include="Resources\Account.png" />
     <Content Include="Resources\Archive.png" />
     <Content Include="Resources\Case.png" />

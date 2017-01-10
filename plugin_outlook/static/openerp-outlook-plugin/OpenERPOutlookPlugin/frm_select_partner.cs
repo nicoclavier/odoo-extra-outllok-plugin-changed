@@ -28,37 +28,15 @@ namespace OpenERPOutlookPlugin
 
     public partial class frm_select_partner : Form
     {
+        private char selectedPartnerId;
+
         public frm_select_partner()
         {
             InitializeComponent();
            
         }
-        public Form parent_form = null;
 
-        private void btn_select_partner_select_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (lstbox_select_partner.SelectedItem == null)
-                {
-                    throw new Exception("Please select a partner from the list.");
-                }
-                else
-                {
-                    txt_select_partner.Text = lstbox_select_partner.SelectedItem.ToString();
-                    int partner_id = (int)Cache.OpenERPOutlookPlugin.CreatePartnerRecord(lstbox_select_partner.SelectedItem.ToString());
-                    foreach (outlook.MailItem mailItem in Tools.MailItems())
-                    {
-                        Cache.OpenERPOutlookPlugin.CreateContactRecord(partner_id, mailItem.SenderName, mailItem.SenderEmailAddress);
-                    }
-                    this.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                Connect.handleException(ex);
-            }
-        }
+        public Form parent_form = null;
 
         private void btn_select_partner_close_Click(object sender, EventArgs e)
         {
@@ -71,13 +49,13 @@ namespace OpenERPOutlookPlugin
             * Will search the list of partners as per the given search criteria.
             */
             try
-            {
-                lstbox_select_partner.Items.Clear();
+                    {
+                partnerGrid.Rows.Clear();
                 foreach (Record oo in Cache.OpenERPOutlookPlugin.SearchRecord(txt_select_partner.Text, "res.partner"))
                 {
-                    lstbox_select_partner.Items.Add(oo.name);
+                    partnerGrid.Rows.Add(oo.id, oo.name);
                 }
-                if (lstbox_select_partner.Items.Count == 0)
+                if (partnerGrid.Rows.Count == 0)
                 {
                     Connect.displayMessage("No matching Partner(s) found.");
                 }
@@ -93,29 +71,46 @@ namespace OpenERPOutlookPlugin
             search_lst_partner();
         }
 
-        public string SelectPartnerText
+        private void PopulateDataGridView()
         {
-            /*
-             * Will gets and sets the selected partner from the list of partners.
-             */
-            get
-            {
-                return this.txt_select_partner.Text;
-            }
-            set
-            {
-                this.txt_select_partner.Text = value;
-            }
-        }
-
-        private void frm_select_partner_Load(object sender, EventArgs e)
-        {
-            Record[] partenr_list = Cache.OpenERPOutlookPlugin.SearchRecord(null,"res.partner");
+            Record[] partenr_list = Cache.OpenERPOutlookPlugin.SearchRecord(null, "res.partner");
 
             foreach (Record partner in partenr_list)
             {
-                lstbox_select_partner.Items.Add(partner.name);
+                partnerGrid.Rows.Add(partner.id,partner.name);
             }
+        }
+
+        private void partnerGrid_SelectionChanged(object sender, EventArgs e)
+        { 
+            // useless if we read straight from the selected row ...
+            //selectedPartnerId = partnerGrid.SelectedRows.[0].Cells[0].Value.ToString();
+        }
+
+        private void btn_link_to_partner_click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (partnerGrid.SelectedRows == null)
+                {
+                    throw new Exception("Please select a partner from the list.");
+                }
+                else
+                {
+                    txt_select_partner.Text = partnerGrid.SelectedRows[0].Cells[1].Value.ToString();
+                    int partner_id = int.Parse(partnerGrid.SelectedRows[0].Cells[0].Value.ToString());
+                    foreach (outlook.MailItem mailItem in Tools.MailItems())
+                    {
+                        Cache.OpenERPOutlookPlugin.CreateContactRecord(partner_id, mailItem.SenderName, mailItem.SenderEmailAddress);
+                    }
+                    this.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Connect.handleException(ex);
+            }
+
         }
     }
 }
