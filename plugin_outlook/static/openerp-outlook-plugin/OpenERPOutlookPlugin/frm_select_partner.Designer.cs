@@ -47,8 +47,9 @@ namespace OpenERPOutlookPlugin
             // 
             this.txt_select_partner.Location = new System.Drawing.Point(19, 20);
             this.txt_select_partner.Name = "txt_select_partner";
-            this.txt_select_partner.Size = new System.Drawing.Size(209, 20);
+            this.txt_select_partner.Size = new System.Drawing.Size(389, 20);
             this.txt_select_partner.TabIndex = 0;
+            this.txt_select_partner.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBoxKeyUp);
             // 
             // groupBox1
             // 
@@ -56,7 +57,7 @@ namespace OpenERPOutlookPlugin
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(13, 51);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(307, 368);
+            this.groupBox1.Size = new System.Drawing.Size(476, 368);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Partner Name";
@@ -65,6 +66,7 @@ namespace OpenERPOutlookPlugin
             // 
             this.partnerGrid.AllowUserToAddRows = false;
             this.partnerGrid.AllowUserToDeleteRows = false;
+            this.partnerGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.partnerGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.partnerGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
@@ -72,25 +74,34 @@ namespace OpenERPOutlookPlugin
             this.partnerGrid.Location = new System.Drawing.Point(6, 19);
             this.partnerGrid.MultiSelect = false;
             this.partnerGrid.Name = "partnerGrid";
-            this.partnerGrid.Size = new System.Drawing.Size(295, 343);
+            this.partnerGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.partnerGrid.Size = new System.Drawing.Size(464, 343);
             this.partnerGrid.TabIndex = 5;
+            this.partnerGrid.DoubleClick += new System.EventHandler(this.btn_link_to_partner_click);
             // 
             // id
             // 
+            this.id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.id.FillWeight = 1F;
             this.id.HeaderText = "Id";
+            this.id.MinimumWidth = 2;
             this.id.Name = "id";
+            this.id.Visible = false;
+            this.id.Width = 2;
             // 
             // name
             // 
-            this.name.HeaderText = "Name";
+            this.name.HeaderText = "Partner Name";
+            this.name.MinimumWidth = 2;
             this.name.Name = "name";
+            this.name.ReadOnly = true;
             // 
             // btn_select_partner_select
             // 
             this.btn_select_partner_select.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_select_partner_select.Image = global::OpenERPOutlookPlugin.Properties.Resources.Success;
             this.btn_select_partner_select.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.btn_select_partner_select.Location = new System.Drawing.Point(192, 432);
+            this.btn_select_partner_select.Location = new System.Drawing.Point(366, 432);
             this.btn_select_partner_select.Name = "btn_select_partner_select";
             this.btn_select_partner_select.Size = new System.Drawing.Size(53, 23);
             this.btn_select_partner_select.TabIndex = 6;
@@ -104,7 +115,7 @@ namespace OpenERPOutlookPlugin
             this.btn_select_partner_close.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_select_partner_close.Image = global::OpenERPOutlookPlugin.Properties.Resources.Error;
             this.btn_select_partner_close.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.btn_select_partner_close.Location = new System.Drawing.Point(251, 432);
+            this.btn_select_partner_close.Location = new System.Drawing.Point(425, 432);
             this.btn_select_partner_close.Name = "btn_select_partner_close";
             this.btn_select_partner_close.Size = new System.Drawing.Size(64, 23);
             this.btn_select_partner_close.TabIndex = 5;
@@ -118,7 +129,7 @@ namespace OpenERPOutlookPlugin
             this.btn_select_partner_search.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_select_partner_search.Image = ((System.Drawing.Image)(resources.GetObject("btn_select_partner_search.Image")));
             this.btn_select_partner_search.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_select_partner_search.Location = new System.Drawing.Point(245, 19);
+            this.btn_select_partner_search.Location = new System.Drawing.Point(414, 19);
             this.btn_select_partner_search.Name = "btn_select_partner_search";
             this.btn_select_partner_search.Size = new System.Drawing.Size(75, 23);
             this.btn_select_partner_search.TabIndex = 1;
@@ -131,7 +142,7 @@ namespace OpenERPOutlookPlugin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(350, 467);
+            this.ClientSize = new System.Drawing.Size(501, 467);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btn_select_partner_select);
             this.Controls.Add(this.btn_select_partner_close);
@@ -142,6 +153,7 @@ namespace OpenERPOutlookPlugin
             this.MaximizeBox = false;
             this.Name = "frm_select_partner";
             this.Text = "Select Partner";
+            this.Load += new System.EventHandler(this.frm_select_partner_Load);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.partnerGrid)).EndInit();
             this.ResumeLayout(false);

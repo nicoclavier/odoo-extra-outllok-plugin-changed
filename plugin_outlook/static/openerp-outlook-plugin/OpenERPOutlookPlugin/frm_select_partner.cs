@@ -28,7 +28,6 @@ namespace OpenERPOutlookPlugin
 
     public partial class frm_select_partner : Form
     {
-        private char selectedPartnerId;
 
         public frm_select_partner()
         {
@@ -70,7 +69,14 @@ namespace OpenERPOutlookPlugin
         {
             search_lst_partner();
         }
-
+        private void TextBoxKeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                //Do something
+                search_lst_partner();
+            }
+        }
         private void PopulateDataGridView()
         {
             Record[] partenr_list = Cache.OpenERPOutlookPlugin.SearchRecord(null, "res.partner");
@@ -81,11 +87,11 @@ namespace OpenERPOutlookPlugin
             }
         }
 
-        private void partnerGrid_SelectionChanged(object sender, EventArgs e)
-        { 
-            // useless if we read straight from the selected row ...
-            //selectedPartnerId = partnerGrid.SelectedRows.[0].Cells[0].Value.ToString();
-        }
+        //private void partnerGrid_SelectionChanged(object sender, EventArgs e)
+        //{ 
+        //    // useless if we read straight from the selected row ...
+        //    //selectedPartnerId = partnerGrid.SelectedRows.[0].Cells[0].Value.ToString();
+        //}
 
         private void btn_link_to_partner_click(object sender, EventArgs e)
         {
@@ -111,6 +117,11 @@ namespace OpenERPOutlookPlugin
                 Connect.handleException(ex);
             }
 
+        }
+
+        private void frm_select_partner_Load(object sender, EventArgs e)
+        {
+            PopulateDataGridView();
         }
     }
 }
