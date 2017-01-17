@@ -1,0 +1,6 @@
+C:\Users\nicoclavier\Source\Repos\odoo-extra-outllok-plugin-changed\plugin_outlook\static\openerp-outlook-plugin\OpenERPClient\bin\Release\OpenERPClient.dll
+C:\Users\nicoclavier\Source\Repos\odoo-extra-outllok-plugin-changed\plugin_outlook\static\openerp-outlook-plugin\OpenERPClient\bin\Release\OpenERPClient.pdb
+C:\Users\nicoclavier\Source\Repos\odoo-extra-outllok-plugin-changed\plugin_outlook\static\openerp-outlook-plugin\OpenERPClient\bin\Release\CookComputing.XmlRpcV2.dll
+C:\Users\nicoclavier\Source\Repos\odoo-extra-outllok-plugin-changed\plugin_outlook\static\openerp-outlook-plugin\OpenERPClient\obj\Release\OpenERPClient.dll
+C:\Users\nicoclavier\Source\Repos\odoo-extra-outllok-plugin-changed\plugin_outlook\static\openerp-outlook-plugin\OpenERPClient\obj\Release\OpenERPClient.pdb
+C:\Users\nicoclavier\Source\Repos\odoo-extra-outllok-plugin-changed\plugin_outlook\static\openerp-outlook-plugin\OpenERPClient\obj\Release\OpenERPClient.csprojResolveAssemblyReference.cache

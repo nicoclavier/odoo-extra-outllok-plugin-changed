@@ -50,7 +50,37 @@ namespace OpenERPOutlookPlugin
             //this.set_server_method();
         }
 
-        public Record[] SearchRecord(string name,string model)
+        public Record[] DomainSearchRecord(string domain, string model)
+        {
+            /*
+             * Gives domain and model for domain based search record.
+             */
+            ArrayList object_list = new ArrayList();
+            Model parent_model;
+            parent_model = new Model(model);
+            ArrayList args = new ArrayList();
+            args.Add(parent_model.model);
+            if (domain != null)
+            {
+                args.Add(domain);
+            }
+            else
+            {
+                args.Add("[]");
+            }
+            object[] objects = (object[])this.openerp_connect.Execute("plugin.handler", "search_document", args.ToArray());
+            foreach (object obj in objects)
+            {
+                Hashtable document = new Hashtable();
+                object[] names = (object[])obj;
+                document.Add("id", names[0].ToString());
+                document.Add("name", names[1].ToString());
+                object_list.Add(new Record(document, parent_model));
+            }
+            return (Record[])object_list.ToArray(typeof(Record));
+        }
+
+        public Record[] SearchRecord(string name, string model)
         {
             /*
              * Gives name and model for search record.
@@ -75,9 +105,9 @@ namespace OpenERPOutlookPlugin
                 object[] names = (object[])obj;
                 document.Add("id", names[0].ToString());
                 document.Add("name", names[1].ToString());
-                object_list.Add(new Record(document,parent_model));
+                object_list.Add(new Record(document, parent_model));
             }
-            return (Record[])object_list.ToArray(typeof(Record));            
+            return (Record[])object_list.ToArray(typeof(Record));
         }
 
         public string Name_get(outlook.MailItem mail)

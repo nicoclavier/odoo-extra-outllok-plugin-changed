@@ -48,9 +48,9 @@ namespace OpenERPOutlookPlugin
             * Will search the list of partners as per the given search criteria.
             */
             try
-                    {
+                 {
                 partnerGrid.Rows.Clear();
-                foreach (Record oo in Cache.OpenERPOutlookPlugin.SearchRecord(txt_select_partner.Text, "res.partner"))
+                foreach (Record oo in Cache.OpenERPOutlookPlugin.DomainSearchRecord("[('name','ilike','" + txt_select_partner.Text + "'),('is_company','=',True)]", "res.partner"))
                 {
                     partnerGrid.Rows.Add(oo.id, oo.name);
                 }
