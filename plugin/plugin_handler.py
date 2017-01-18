@@ -6,6 +6,7 @@ Created on 18 oct. 2011
 
 from openerp.osv import osv
 from openerp.tools.translate import _
+from openerp.tools.safe_eval import safe_eval as eval
 
 class plugin_handler(osv.osv_memory):
     _name = 'plugin.handler'
@@ -72,6 +73,20 @@ class plugin_handler(osv.osv_memory):
         doc_dict = mail_thread_obj.message_capable_models(cr, uid, context)
         doc_dict['res.partner'] = "Partner"
         return doc_dict.items()
+
+    def search_document(self, cr, uid, model, str_domain):
+        """
+            This function returns the result of an advanced search on the object model
+            @param model: the name of the model
+            @param dict_arg: model as a string to be evaled into a list of tuples
+            @return : the result of name_search a list of tuple
+            [(id, 'name')]
+        """
+        try:
+            domain = eval(str_domain)
+        except Exception as e:
+            return []
+        return self.pool[model].search(cr, uid, domain)
 
     # Can be used where search record was used
     def list_document_get(self, cr, uid, model, name):
