@@ -54,7 +54,7 @@
         </record>
 
         <!-- Sales Configuration -->
-        <record id="view_config_outlook_installer" model="ir.ui.view">
+        <!-- <record id="view_config_outlook_installer" model="ir.ui.view">
             <field name="name">Sales Application</field>
             <field name="model">sale.config.settings</field>
             <field name="inherit_id" ref="base_setup.view_sale_config_settings"/>
@@ -68,7 +68,7 @@
                     </div>
                 </div>
             </field>
-        </record>
+        </record> -->
 
         <record id="action_outlook_wizard" model="ir.actions.act_window">
             <field name="name">Install Outlook Plug-In</field>
