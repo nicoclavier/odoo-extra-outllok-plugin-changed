@@ -59,6 +59,42 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <RegisterForComInterop>true</RegisterForComInterop>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>true</RegisterForComInterop>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <RegisterForComInterop>true</RegisterForComInterop>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>true</RegisterForComInterop>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>
+    </ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="CookComputing.XmlRpcV2">
       <HintPath>..\CookComputing.XmlRpcV2.dll</HintPath>
@@ -111,6 +147,12 @@
     </Compile>
     <Compile Include="Cache.cs" />
     <Compile Include="ConfigManager.cs" />
+    <Compile Include="frm_comfirm_create.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_comfirm_create.Designer.cs">
+      <DependentUpon>frm_comfirm_create.cs</DependentUpon>
+    </Compile>
     <Compile Include="frm_contact.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -170,6 +212,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="frm_comfirm_create.resx">
+      <DependentUpon>frm_comfirm_create.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frm_contact.resx">
       <DependentUpon>frm_contact.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -215,6 +260,7 @@
     <None Include="Resources\195737_152643643962_3595480_n.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="favicon.ico" />
     <Content Include="NetOffice.OutlookSecurity.dll" />
     <Content Include="Resources\Account.png" />
     <Content Include="Resources\Archive.png" />

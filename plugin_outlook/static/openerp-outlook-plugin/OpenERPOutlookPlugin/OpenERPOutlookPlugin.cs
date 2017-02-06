@@ -50,7 +50,37 @@ namespace OpenERPOutlookPlugin
             //this.set_server_method();
         }
 
-        public Record[] SearchRecord(string name,string model)
+        public Record[] DomainSearchRecord(string domain, string model)
+        {
+            /*
+             * Gives domain and model for domain based search record.
+             */
+            ArrayList object_list = new ArrayList();
+            Model parent_model;
+            parent_model = new Model(model);
+            ArrayList args = new ArrayList();
+            args.Add(parent_model.model);
+            if (domain != null)
+            {
+                args.Add(domain);
+            }
+            else
+            {
+                args.Add("[]");
+            }
+            object[] objects = (object[])this.openerp_connect.Execute("plugin.handler", "search_document", args.ToArray());
+            foreach (object obj in objects)
+            {
+                Hashtable document = new Hashtable();
+                object[] names = (object[])obj;
+                document.Add("id", names[0].ToString());
+                document.Add("name", names[1].ToString());
+                object_list.Add(new Record(document, parent_model));
+            }
+            return (Record[])object_list.ToArray(typeof(Record));
+        }
+
+        public Record[] SearchRecord(string name, string model)
         {
             /*
              * Gives name and model for search record.
@@ -75,9 +105,9 @@ namespace OpenERPOutlookPlugin
                 object[] names = (object[])obj;
                 document.Add("id", names[0].ToString());
                 document.Add("name", names[1].ToString());
-                object_list.Add(new Record(document,parent_model));
+                object_list.Add(new Record(document, parent_model));
             }
-            return (Record[])object_list.ToArray(typeof(Record));            
+            return (Record[])object_list.ToArray(typeof(Record));
         }
 
         public string Name_get(outlook.MailItem mail)
@@ -90,13 +120,6 @@ namespace OpenERPOutlookPlugin
      
         }
 
-        public void RedirectWeb(object web_url)
-        {
-            /*
-             * Will open the url into the web browser.
-             */
-            System.Diagnostics.Process.Start(web_url.ToString());
-        }
 
 
         public object[] RedirectPartnerPage(outlook.MailItem mail)
@@ -125,7 +148,15 @@ namespace OpenERPOutlookPlugin
             object doc = this.openerp_connect.Execute("plugin.handler", "document_get", email);
             object[] url = (object[])doc;            
             this.RedirectWeb(url[2].ToString());
-        }       
+        }
+
+        public void RedirectWeb(object web_url)
+        {
+            /*
+             * Will open the url into the web browser.
+             */
+            System.Diagnostics.Process.Start(web_url.ToString());
+        }
 
         public Boolean PushMail(outlook.MailItem mail, string model, int thread_id)
         {
@@ -173,24 +204,24 @@ namespace OpenERPOutlookPlugin
                 }
                 return true;
         }       
-        public long CreatePartnerRecord(string name)
-        {
-            /*
+        //public long CreatePartnerRecord(string name)
+        //{
+        //    /*
              
-             * Creates a partner record in res.partner as per the name given in the plugin form.
-               :Param String name: Name given to create a partner in the database.
-             * Returns a Long value : Partner id.
+        //     * Creates a partner record in res.partner as per the name given in the plugin form.
+        //       :Param String name: Name given to create a partner in the database.
+        //     * Returns a Long value : Partner id.
              
-             */
-            Record[] partenr_list = this.SearchRecord(name,"res.partner");
-            int partner_id = 0;
-            foreach (Record partner in partenr_list)
-            {
-                partner_id = Convert.ToInt16(partner.id);
-            }
+        //     */
+        //    Record[] partenr_list = this.SearchRecord(name,"res.partner");
+        //    int partner_id = 0;
+        //    foreach (Record partner in partenr_list)
+        //    {
+        //        partner_id = Convert.ToInt16(partner.id);
+        //    }
 
-            return partner_id;
-        }
+        //    return partner_id;
+        //}
         public void CreateContactRecord(int partner_id, string name, string email_id)
         {
             /*
@@ -209,8 +240,11 @@ namespace OpenERPOutlookPlugin
             args.Add(values);
             args.Add(partner_id);
             object[] contact = (object[])this.openerp_connect.Execute("plugin.handler", "contact_create", args.ToArray());
-            this.RedirectWeb(contact[2].ToString());
-
+            if( contact != null) {
+                frm_comfirm_create comfirm_window = new frm_comfirm_create();
+                comfirm_window.url = contact[2].ToString();
+                comfirm_window.Show();
+            }
           }
    
         public Model[] GetMailModels()

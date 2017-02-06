@@ -11,4 +11,26 @@
     <StartProgram>C:\Program Files\Microsoft Visual Studio 9.0\Common7\IDE\devenv.exe</StartProgram>
     <StartAction>Program</StartAction>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <StartProgram>C:\Program Files %28x86%29\Microsoft Office\Office15\OUTLOOK.EXE</StartProgram>
+    <StartWorkingDirectory>C:\Users\nicoclavier\Desktop\openerp-outlook-plugin\OpenERPOutlookPlugin\bin\Debug\</StartWorkingDirectory>
+    <EnableUnmanagedDebugging>true</EnableUnmanagedDebugging>
+    <StartAction>Program</StartAction>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <StartProgram>C:\Program Files\Microsoft Office\Office15\OUTLOOK.EXE</StartProgram>
+    <StartWorkingDirectory>C:\Program Files %28x86%29\Microsoft Visual Studio 14.0\Common7\IDE\</StartWorkingDirectory>
+    <StartAction>Program</StartAction>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <StartProgram>C:\Program Files\Microsoft Office\Office15\OUTLOOK.EXE</StartProgram>
+    <StartWorkingDirectory>C:\Users\nicoclavier\Source\Repos\odoo-extra-outllok-plugin-changed\plugin_outlook\static\openerp-outlook-plugin\OpenERPOutlookPlugin\bin\Debug\</StartWorkingDirectory>
+    <EnableUnmanagedDebugging>true</EnableUnmanagedDebugging>
+    <StartAction>Program</StartAction>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <StartProgram>C:\Program Files\Microsoft Visual Studio 9.0\Common7\IDE\devenv.exe</StartProgram>
+    <StartWorkingDirectory>C:\Program Files\Microsoft Visual Studio 9.0\Common7\IDE\</StartWorkingDirectory>
+    <StartAction>Program</StartAction>
+  </PropertyGroup>
 </Project>
