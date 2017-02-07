@@ -74,7 +74,7 @@ class plugin_handler(osv.osv_memory):
         doc_dict['res.partner'] = "Partner"
         return doc_dict.items()
 
-    def search_document(self, cr, uid, model, str_domain):
+    def search_document(self, cr, uid, model, str_domain, ids_only=False):
         """
             This function returns the result of an advanced search on the object model
             @param model: the name of the model
@@ -82,11 +82,19 @@ class plugin_handler(osv.osv_memory):
             @return : the result of name_search a list of tuple
             [(id, 'name')]
         """
+
         try:
             domain = eval(str_domain)
+            doc_ids = self.pool[model].search(cr, uid, domain)
+            if ids_only:
+                return doc_ids
+            res = self.pool[model].name_get(cr, uid, ids)
+            _logger.debug("res = %s") % res
+            return res
         except Exception as e:
+            _logger.error("search_document error : %s") % e
             return []
-        return self.pool[model].search(cr, uid, domain)
+
 
     # Can be used where search record was used
     def list_document_get(self, cr, uid, model, name):
