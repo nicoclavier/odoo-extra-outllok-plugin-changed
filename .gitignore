@@ -8,3 +8,14 @@
 runbot/static/build
 runbot/static/repo
 runbot/static/nginx
+plugin_outlook/static/openerp-outlook-plugin/OpenERPClient/bin
+plugin_outlook/static/openerp-outlook-plugin/OpenERPClient/obj
+plugin_outlook/static/openerp-outlook-plugin/OpenERPOutlookPlugin/obj
+plugin_outlook/static/openerp-outlook-plugin/OpenERPOutlookPlugin/bin
+plugin_outlook/static/openerp-outlook-plugin/OpenERPOutlookPlugin/*.cd
+plugin_outlook/static/openerp-outlook-plugin/OpenERPOutlookPlugin/*.dll
+plugin_outlook/static/openerp-outlook-plugin/OpenERPOutlookPluginSetup/
+plugin_outlook/static/openerp-outlook-plugin/OpenERPOutlookPluginSetup/Release
+plugin_outlook/static/openerp-outlook-plugin/OpenERPOutlookPluginSetup/*.msi
+plugin_outlook/static/openerp-outlook-plugin/OpenERPOutlookPluginSetup/*.exe
+plugin_outlook/static/openerp-outlook-plugin/OdooOutlookPluginSetup
