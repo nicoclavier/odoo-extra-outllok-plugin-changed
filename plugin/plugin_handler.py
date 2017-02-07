@@ -7,6 +7,8 @@ Created on 18 oct. 2011
 from openerp.osv import osv
 from openerp.tools.translate import _
 from openerp.tools.safe_eval import safe_eval as eval
+import logging
+_logger = logging.getLogger(__name__)
 
 class plugin_handler(osv.osv_memory):
     _name = 'plugin.handler'
