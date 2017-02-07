@@ -85,17 +85,18 @@ class plugin_handler(osv.osv_memory):
             [(id, 'name')]
         """
 
-        try:
-            domain = eval(str_domain)
-            doc_ids = self.pool[model].search(cr, uid, domain)
-            if ids_only:
-                return doc_ids
-            res = self.pool[model].name_get(cr, uid, ids)
-            _logger.debug("res = %s") % res
-            return res
-        except Exception as e:
-            _logger.error("search_document error : %s") % e
-            return []
+        domain = eval(str_domain)
+        doc_ids = self.pool[model].search(cr, uid, domain)
+        if ids_only:
+            return doc_ids
+        res = self.pool[model].name_get(cr, uid, ids)
+        _logger.debug("res = %s") % res
+        return res
+
+        # try:
+        # except Exception as e:
+        #     _logger.error("search_document error : %s") % e
+        #     return []
 
 
     # Can be used where search record was used
