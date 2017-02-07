@@ -86,7 +86,7 @@ class plugin_handler(osv.osv_memory):
         """
 
         domain = eval(str_domain)
-        doc_ids = self.pool[model].search(cr, uid, domain)
+        doc_ids = self.pool[model].search(cr, uid, domain, limit=80)
         if ids_only:
             return doc_ids
         res = self.pool[model].name_get(cr, uid, doc_ids)
