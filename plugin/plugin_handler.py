@@ -4,9 +4,12 @@ Created on 18 oct. 2011
 @author: openerp
 '''
 
+import sys
 from openerp.osv import osv
 from openerp.tools.translate import _
 from openerp.tools.safe_eval import safe_eval as eval
+import logging
+_logger = logging.getLogger(__name__)
 
 class plugin_handler(osv.osv_memory):
     _name = 'plugin.handler'
@@ -74,19 +77,29 @@ class plugin_handler(osv.osv_memory):
         doc_dict['res.partner'] = "Partner"
         return doc_dict.items()
 
-    def search_document(self, cr, uid, model, str_domain):
+    def search_document(self, cr, uid, model, str_domain, ids_only=False):
         """
-            This function returns the result of an advanced search on the object model
+            This function returns the result of an advanced search on the object
             @param model: the name of the model
             @param dict_arg: model as a string to be evaled into a list of tuples
             @return : the result of name_search a list of tuple
             [(id, 'name')]
         """
+
         try:
             domain = eval(str_domain)
+            res = []
+            doc_ids = self.pool[model].search(cr, uid, domain, limit=80)
+            if ids_only:
+                return doc_ids
+            else :
+                res = self.pool[model].name_get(cr, uid, doc_ids)
+            #_logger.debug("res : {}".format(res))
+            return res
         except Exception as e:
+            _logger.error("An error occured in 'search_document' with args : %s" % sys.argv[1:])
             return []
-        return self.pool[model].search(cr, uid, domain)
+
 
     # Can be used where search record was used
     def list_document_get(self, cr, uid, model, name):
