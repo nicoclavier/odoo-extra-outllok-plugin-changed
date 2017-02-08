@@ -147,11 +147,11 @@
     </Compile>
     <Compile Include="Cache.cs" />
     <Compile Include="ConfigManager.cs" />
-    <Compile Include="frm_comfirm_create.cs">
+    <Compile Include="frm_comfirm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frm_comfirm_create.Designer.cs">
-      <DependentUpon>frm_comfirm_create.cs</DependentUpon>
+    <Compile Include="frm_comfirm.Designer.cs">
+      <DependentUpon>frm_comfirm.cs</DependentUpon>
     </Compile>
     <Compile Include="frm_contact.cs">
       <SubType>Form</SubType>
@@ -212,8 +212,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="frm_comfirm_create.resx">
-      <DependentUpon>frm_comfirm_create.cs</DependentUpon>
+    <EmbeddedResource Include="frm_comfirm.resx">
+      <DependentUpon>frm_comfirm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frm_contact.resx">
       <DependentUpon>frm_contact.cs</DependentUpon>

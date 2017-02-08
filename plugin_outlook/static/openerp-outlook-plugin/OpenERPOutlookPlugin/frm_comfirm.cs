@@ -9,13 +9,18 @@ using System.Windows.Forms;
 
 namespace OpenERPOutlookPlugin
 {
-    public partial class frm_comfirm_create : Form
+    public partial class frm_comfirm : Form
     {
         public String url = null;
 
-        public frm_comfirm_create()
+        public frm_comfirm()
         {
             InitializeComponent();
+        }
+
+        public void UpdateDisplayedText(string input)
+        {
+            this.displayed_text.Text = input;
         }
 
         public void RedirectWeb(object web_url)
@@ -32,7 +37,7 @@ namespace OpenERPOutlookPlugin
             {
                 this.RedirectWeb(this.url);
             }
-            
+            this.Close();
         }
 
          private void close(object sender, EventArgs e)

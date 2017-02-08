@@ -328,7 +328,10 @@ namespace OpenERPOutlookPlugin
                         Object[] contact = Cache.OpenERPOutlookPlugin.RedirectPartnerPage(mailitem);
                         if ((int)contact[1] > 0)
                         {
-                            Cache.OpenERPOutlookPlugin.RedirectWeb(contact[2]);
+                            frm_comfirm comfirm_window = new frm_comfirm();
+                            comfirm_window.url = contact[2].ToString();
+                            comfirm_window.UpdateDisplayedText("The contact already exists in Odoo!");
+                            comfirm_window.Show();
                         }
                         else
                         {

@@ -1,6 +1,6 @@
 ﻿namespace OpenERPOutlookPlugin
 {
-    partial class frm_comfirm_create
+    partial class frm_comfirm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,14 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_comfirm_create));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_comfirm));
             this.ok_created = new System.Windows.Forms.Button();
             this.button_view_url = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.displayed_text = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // ok_created
             // 
+            this.ok_created.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.ok_created.Location = new System.Drawing.Point(297, 58);
             this.ok_created.Name = "ok_created";
             this.ok_created.Size = new System.Drawing.Size(75, 23);
@@ -54,25 +55,32 @@
             this.button_view_url.UseVisualStyleBackColor = true;
             this.button_view_url.Click += new System.EventHandler(this.button_view_in_odoo_Click);
             // 
-            // textBox1
+            // displayed_text
             // 
-            this.textBox1.Location = new System.Drawing.Point(13, 13);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(359, 20);
-            this.textBox1.TabIndex = 2;
-            this.textBox1.Text = "The document was successfully created.";
+            this.displayed_text.AutoSize = true;
+            this.displayed_text.Location = new System.Drawing.Point(12, 9);
+            this.displayed_text.Name = "displayed_text";
+            this.displayed_text.Size = new System.Drawing.Size(189, 13);
+            this.displayed_text.TabIndex = 3;
+            this.displayed_text.Text = "The contact was successfully created!";
             // 
-            // frm_comfirm_create
+            // frm_comfirm
             // 
+            this.AcceptButton = this.ok_created;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(384, 93);
-            this.Controls.Add(this.textBox1);
+            this.CancelButton = this.ok_created;
+            this.ClientSize = new System.Drawing.Size(395, 92);
+            this.ControlBox = false;
+            this.Controls.Add(this.displayed_text);
             this.Controls.Add(this.button_view_url);
             this.Controls.Add(this.ok_created);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "frm_comfirm_create";
-            this.Text = "Partner Creation Result";
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.Name = "frm_comfirm";
+            this.Text = "Odoo Partners";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -82,6 +90,6 @@
 
         private System.Windows.Forms.Button ok_created;
         private System.Windows.Forms.Button button_view_url;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label displayed_text;
     }
 }

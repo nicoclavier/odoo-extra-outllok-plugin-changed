@@ -127,7 +127,7 @@ namespace OpenERPOutlookPlugin
             /*
              
              * Will Redirect to the web-browser and open partner.
-             * If it will not found partner in res.partner (in contact) then 
+             * If it does not find a partner in res.partner (in contact) then 
                it will open the contact form to create a partner.
                :Param outlook.MailItem mailItem : Outlook Mail item
              */
@@ -241,8 +241,9 @@ namespace OpenERPOutlookPlugin
             args.Add(partner_id);
             object[] contact = (object[])this.openerp_connect.Execute("plugin.handler", "contact_create", args.ToArray());
             if( contact != null) {
-                frm_comfirm_create comfirm_window = new frm_comfirm_create();
+                frm_comfirm comfirm_window = new frm_comfirm();
                 comfirm_window.url = contact[2].ToString();
+                comfirm_window.UpdateDisplayedText("The contact was successfully created !");
                 comfirm_window.Show();
             }
           }
