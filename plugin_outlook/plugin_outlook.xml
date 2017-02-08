@@ -17,11 +17,11 @@
                     </xpath>
                     <xpath expr="//separator[@string='title']" position="after">
                         <group>
-                            <field name="plugin32" widget="url"/>
-                            <field name="plugin64" widget="url"/>
+                            <field name="plugin" widget="url"/>
+                            <!--<field name="plugin64" widget="url"/>-->
                         </group>
                         <separator string="Installation and Configuration Steps"/>
-                        <p>Click on the link above to download the installer for either 32 or 64 bits, and execute it.</p>
+                        <p>Click on the link above to download the installer, and execute it.</p>
                         <p>System requirements:</p>
                         <ol>
                             <li> MS Outlook 2010 or above.</li>
@@ -29,7 +29,7 @@
                         </ol>
                         <p>Outlook plug-in installation:</p>
                         <ol>
-                            <li>Save the outlook plugin corresponding to your Office version (Office x86 or Office x64).</li>
+                            <li>Save the outlook plugin.</li>
                             <li>Double-click on the executable file and install the plugin.</li>
                             <li>Open Outlook (close it and open it again if it is already closed).</li>
                             <li>From the Outlook menubar: Components -> OpenERP -> Configuration.</li>

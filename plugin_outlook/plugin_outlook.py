@@ -28,15 +28,14 @@ class outlook_installer(osv.osv_memory):
     _name = 'outlook.installer'
     _inherit = 'res.config.installer'
     _columns = {
-        'plugin32': fields.char('Outlook Plug-in 32bits', readonly=True, help="Outlook plug-in file. Save this file and install it in Outlook."),
-        'plugin64': fields.char('Outlook Plug-in 64bits', readonly=True, help="Outlook plug-in file. Save this file and install it in Outlook."),
+        'plugin': fields.char('Odoo Outlook Plug-in', readonly=True, help="Outlook plug-in file. Save this file and install it in Outlook."),
     }
 
     def default_get(self, cr, uid, fields, context=None):
         res = super(outlook_installer, self).default_get(cr, uid, fields, context)
         base_url = self.pool.get('ir.config_parameter').get_param(cr, uid, 'web.base.url')
-        res['plugin32'] = base_url + '/plugin_outlook/static/openerp-outlook-plugin/OpenERPOutlookPluginSetup32.msi'
-        res['plugin64'] = base_url + '/plugin_outlook/static/openerp-outlook-plugin/OpenERPOutlookPluginSetup64.msi'
+        res['plugin'] = base_url + '/plugin_outlook/static/openerp-outlook-plugin/OpenERPOutlookPluginSetup.msi'
+        #res['plugin64'] = base_url + '/plugin_outlook/static/openerp-outlook-plugin/OpenERPOutlookPluginSetup64.msi'
         return res
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
