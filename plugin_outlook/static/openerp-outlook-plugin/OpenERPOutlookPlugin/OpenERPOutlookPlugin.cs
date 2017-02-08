@@ -235,7 +235,8 @@ namespace OpenERPOutlookPlugin
             */
             Hashtable values = new Hashtable();
             values.Add("name", name);
-            values.Add("email", email_id);            
+            values.Add("email", email_id);
+            values.Add("type", "contact");
             ArrayList args = new ArrayList();
             args.Add(values);
             args.Add(partner_id);
