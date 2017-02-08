@@ -140,7 +140,15 @@ class plugin_handler(osv.osv_memory):
             if not email_from:
                 author_id = False
             else:
-                authors = mail_thread_obj.message_find_partner_from_emails(cr, uid, [res_id], [email_from])
+                #authors = mail_thread_obj.message_find_partner_from_emails(cr, uid, [res_id], [email_from])
+                authors = mail_thread_obj._find_partner_from_emails(cr, uid, [res_id], [email_from],
+                                                                     check_followers=False)
+# is this still needed
+#                if isinstance(authors, list) and authors[0]:
+#                    author_id = authors[0]
+#                else:
+#                    author_id = False
+
                 author_id = authors and authors[0].get('partner_id') or False
 
             model_obj.message_post(cr, uid, [res_id],
@@ -162,7 +170,7 @@ class plugin_handler(osv.osv_memory):
                 [('field_name', value)], field name is required
             @param partner_id : On which partner the address is attached
              if partner_id = 0 then create a new partner with the same name that the address
-            @return : the partner_id sended or created, this allow the plugin to open the right partner page
+            @return : the partner_id sent or created, this allows the plugin to open the right partner page
         """
         partner_obj = self.pool.get('res.partner')
         dictcreate = dict(data)
