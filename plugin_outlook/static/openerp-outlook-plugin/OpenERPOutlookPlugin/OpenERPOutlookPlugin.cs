@@ -200,7 +200,12 @@ namespace OpenERPOutlookPlugin
                 }
                 else
                 {
-                    this.RedirectWeb(push[2].ToString());      
+                // Mark mail as document sent to Odoo
+                    Tools.AssignCategory(mail, "Odoo");
+                    frm_comfirm comfirm_push_window = new frm_comfirm();
+                    comfirm_push_window.url = push[2].ToString();
+                    comfirm_push_window.UpdateDisplayedText("The message was succesfully sent !");
+                    comfirm_push_window.Show();
                 }
                 return true;
         }       
@@ -222,7 +227,7 @@ namespace OpenERPOutlookPlugin
 
         //    return partner_id;
         //}
-        public void CreateContactRecord(int partner_id, string name, string email_id)
+        public void CreatePartnerRecord(int partner_id, string name, string email_id, Boolean is_company)
         {
             /*
              
@@ -236,7 +241,11 @@ namespace OpenERPOutlookPlugin
             Hashtable values = new Hashtable();
             values.Add("name", name);
             values.Add("email", email_id);
-            values.Add("type", "contact");
+            if (is_company != true)
+            {
+                values.Add("type", "contact");
+            }
+            values.Add("is_company", is_company);
             ArrayList args = new ArrayList();
             args.Add(values);
             args.Add(partner_id);

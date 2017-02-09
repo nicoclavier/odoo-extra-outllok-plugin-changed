@@ -23,6 +23,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using OpenERPClient;
 using outlook = NetOffice.OutlookApi;
+//using Outlook = Microsoft.Office.Interop.Outlook;
 
 namespace OpenERPOutlookPlugin
 {
@@ -32,7 +33,6 @@ namespace OpenERPOutlookPlugin
 
         public frm_push_mail()
         {
-          
                 InitializeComponent();                
                 cmboboxcreate.Items.Remove("");
         }
@@ -42,7 +42,6 @@ namespace OpenERPOutlookPlugin
         {
             try
             {
-
                 Model[] document_models = Cache.OpenERPOutlookPlugin.GetMailModels();
                 OpenERPOutlookPlugin openerp_outlook = Cache.OpenERPOutlookPlugin;
                 OpenERPConnect openerp_connect = openerp_outlook.Connection;
@@ -58,6 +57,20 @@ namespace OpenERPOutlookPlugin
             catch (Exception ex)
             {
                 Connect.handleException(ex);
+            }
+        }
+        private void TextBoxKeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                try
+                {
+                    this.load_data_list();
+                }
+                catch
+                {
+                    Connect.displayMessage("Please Enter Search Text");
+                }
             }
         }
         private void add_item_recordlist(Record record)
@@ -114,6 +127,36 @@ namespace OpenERPOutlookPlugin
             catch
             { Connect.displayMessage("Please Enter Search Text"); }
         }
+        private void push(object sender, EventArgs e)
+        {
+            try
+            {
+                if (this.lstview_object.SelectedItems.Count <= 0)
+                {
+                    throw new Exception("Please select item from the list to push");
+                }
+                foreach (ListViewItem lv in this.lstview_object.SelectedItems)
+                {
+                    foreach (NetOffice.OutlookApi.MailItem mailItem in Tools.MailItems())
+                    {
+                        Cache.OpenERPOutlookPlugin.PushMail(mailItem, lv.SubItems[1].Name, Convert.ToInt32(lv.Name));
+
+                    }
+                    //bool temp = true;
+                }
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                Connect.handleException(ex);
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Tools.EnumerateCategories();
+        }
+
     }
 }
 

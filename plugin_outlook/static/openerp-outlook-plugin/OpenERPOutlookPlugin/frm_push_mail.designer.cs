@@ -39,15 +39,17 @@ namespace OpenERPOutlookPlugin
             this.cmboboxcreate = new System.Windows.Forms.ComboBox();
             this.lbtypedoc = new System.Windows.Forms.Label();
             this.lstview_object = new System.Windows.Forms.ListView();
-            this.colheadname = new System.Windows.Forms.ColumnHeader();
-            this.colheadmodelname = new System.Windows.Forms.ColumnHeader();
+            this.colheadname = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colheadmodelname = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btn_attach_mail_to_partner = new System.Windows.Forms.Button();
             this.lbldocs = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.btn_search);
             this.groupBox1.Controls.Add(this.txt_doc_search);
             this.groupBox1.Controls.Add(this.lbtsrch);
@@ -85,6 +87,7 @@ namespace OpenERPOutlookPlugin
             this.txt_doc_search.Name = "txt_doc_search";
             this.txt_doc_search.Size = new System.Drawing.Size(254, 20);
             this.txt_doc_search.TabIndex = 14;
+            this.txt_doc_search.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBoxKeyUp);
             // 
             // lbtsrch
             // 
@@ -134,6 +137,7 @@ namespace OpenERPOutlookPlugin
             this.lstview_object.TabIndex = 10;
             this.lstview_object.UseCompatibleStateImageBehavior = false;
             this.lstview_object.View = System.Windows.Forms.View.Details;
+            this.lstview_object.DoubleClick += new System.EventHandler(this.push);
             // 
             // colheadname
             // 
@@ -157,30 +161,7 @@ namespace OpenERPOutlookPlugin
             this.btn_attach_mail_to_partner.Text = "P&ush ";
             this.btn_attach_mail_to_partner.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.btn_attach_mail_to_partner.UseVisualStyleBackColor = true;
-            this.btn_attach_mail_to_partner.Click += new System.EventHandler((sender, e) =>
-            {
-                try
-                {
-                    if (this.lstview_object.SelectedItems.Count <= 0)
-                    {
-                        throw new Exception("Plese select item from the list to push");
-                    }
-                    foreach (ListViewItem lv in this.lstview_object.SelectedItems)
-                    {
-                        foreach (NetOffice.OutlookApi.MailItem mailItem in Tools.MailItems())
-                        {
-                            Cache.OpenERPOutlookPlugin.PushMail(mailItem, lv.SubItems[1].Name, Convert.ToInt32(lv.Name));
-
-                        }
-                        bool temp = true;
-                    }
-                    this.Close();
-                }
-                catch (Exception ex)
-                {
-                    Connect.handleException(ex);
-                }
-            });
+            this.btn_attach_mail_to_partner.Click += new System.EventHandler(this.push);
             // 
             // lbldocs
             // 
@@ -190,6 +171,16 @@ namespace OpenERPOutlookPlugin
             this.lbldocs.Size = new System.Drawing.Size(74, 13);
             this.lbldocs.TabIndex = 0;
             this.lbldocs.Text = "Documents:";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(224, 423);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 16;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // frm_push_mail
             // 
@@ -223,6 +214,6 @@ namespace OpenERPOutlookPlugin
         private System.Windows.Forms.Button btn_search;
         private System.Windows.Forms.TextBox txt_doc_search;
         private System.Windows.Forms.Label lbtsrch;
-
+        private Button button1;
     }
 }

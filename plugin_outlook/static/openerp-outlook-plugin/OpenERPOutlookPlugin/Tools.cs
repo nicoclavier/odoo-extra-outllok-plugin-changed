@@ -19,9 +19,9 @@
 
 using System;
 using System.Collections;
+using System.Diagnostics;
 using System.IO;
 using outlook = NetOffice.OutlookApi;
-
 
 namespace OpenERPOutlookPlugin
 {
@@ -42,7 +42,43 @@ namespace OpenERPOutlookPlugin
             }
             return (outlook.MailItem[])mailItems.ToArray(typeof(outlook.MailItem));
         }
+        static public void AssignCategory(outlook.MailItem item, String categoryName)
+        {
+            outlook.Application app = new outlook.Application();
+            outlook.Categories categories = app.Session.Categories;
+            string itemCategories = item.Categories;
+
+            if (app.Session.Categories[categoryName] == null)
+            {
+                categories.Add(categoryName);
+            }
+            if (String.IsNullOrEmpty(itemCategories))
+            {
+                item.Categories = categoryName;
+            }
+            else
+            {
+                if (item.Categories.Contains(categoryName) == false)
+                {
+                    item.Categories = itemCategories + "," + categoryName;
+                }
+            }
+            
+            item.Save();
+        }
         
+        static public void EnumerateCategories()
+        {
+            outlook.Application app = new outlook.Application();
+            outlook.Categories categories =  app.Session.Categories;
+            foreach (outlook.Category category in categories)
+            {
+                Debug.WriteLine(category.Name);
+                Debug.WriteLine(category.Color);
+            }
+        }
+
+
         static public string[] SplitURL(string url)
         {
             /*

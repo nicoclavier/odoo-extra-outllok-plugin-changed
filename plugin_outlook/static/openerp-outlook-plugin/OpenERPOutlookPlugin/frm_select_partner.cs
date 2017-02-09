@@ -107,7 +107,7 @@ namespace OpenERPOutlookPlugin
                     int partner_id = int.Parse(partnerGrid.SelectedRows[0].Cells[0].Value.ToString());
                     foreach (outlook.MailItem mailItem in Tools.MailItems())
                     {
-                        Cache.OpenERPOutlookPlugin.CreateContactRecord(partner_id, mailItem.SenderName, mailItem.SenderEmailAddress);
+                        Cache.OpenERPOutlookPlugin.CreatePartnerRecord(partner_id, mailItem.SenderName, mailItem.SenderEmailAddress, false);
                     }
                     this.Close();
                 }

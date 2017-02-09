@@ -50,7 +50,7 @@ namespace OpenERPOutlookPlugin
 
             try
             {
-                Cache.OpenERPOutlookPlugin.CreateContactRecord(0, txt_contactname_create_contact.Text, txtemail.Text);
+                Cache.OpenERPOutlookPlugin.CreatePartnerRecord(0, txt_contactname_create_contact.Text, txtemail.Text, true);
                 this.Close();
             }
             catch (Exception ex)
