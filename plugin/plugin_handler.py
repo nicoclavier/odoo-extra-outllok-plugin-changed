@@ -179,7 +179,10 @@ class plugin_handler(osv.osv_memory):
         if partner_id:
             is_company = partner_obj.browse(cr, uid, partner_id, context=context).is_company
             if is_company:
-                dictcreate['parent_id'] = partner_id
+                dictcreate.update({'parent_id': partner_id, 'type': 'contact'})
+        else:
+            dictcreate.update({'type': 'default'})
+
         partner_id = partner_obj.create(cr, uid, dictcreate)
         url = self._make_url(cr, uid, partner_id, 'res.partner')
         return ('res.partner', partner_id, url)
