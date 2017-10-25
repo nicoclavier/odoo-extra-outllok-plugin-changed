@@ -9,7 +9,9 @@ from openerp.osv import osv
 from openerp.tools.translate import _
 from openerp.tools.safe_eval import safe_eval as eval
 import logging
+
 _logger = logging.getLogger(__name__)
+
 
 class plugin_handler(osv.osv_memory):
     _name = 'plugin.handler'
@@ -20,10 +22,12 @@ class plugin_handler(osv.osv_memory):
             @param model: name of the document linked with the mail
             @return url
         """
-        base_url = self.pool.get('ir.config_parameter').get_param(cr, uid, 'web.base.url', default='http://localhost:8069', context=context)
+        base_url = self.pool.get('ir.config_parameter').get_param(cr, uid, 'web.base.url',
+                                                                  default='http://localhost:8069', context=context)
         if base_url:
             user = self.pool.get('res.users').browse(cr, uid, uid, context=context)
-            base_url += '/login?db=%s&login=%s&key=%s#id=%s&model=%s' % (cr.dbname, user.login, user.password, res_id, model)
+            base_url += '/login?db=%s&login=%s&key=%s#id=%s&model=%s' % (
+            cr.dbname, user.login, user.password, res_id, model)
         return base_url
 
     def is_installed(self, cr, uid):
@@ -62,7 +66,7 @@ class plugin_handler(osv.osv_memory):
             res_id = msg.res_id
             model = msg.model
             url = self._make_url(cr, uid, res_id, model)
-            name =  self.pool[model].name_get(cr, uid, [res_id])[0][1]
+            name = self.pool[model].name_get(cr, uid, [res_id])[0][1]
         return (model, res_id, url, name)
 
     def document_type(self, cr, uid, context=None):
@@ -92,14 +96,13 @@ class plugin_handler(osv.osv_memory):
             doc_ids = self.pool[model].search(cr, uid, domain, limit=80)
             if ids_only:
                 return doc_ids
-            else :
+            else:
                 res = self.pool[model].name_get(cr, uid, doc_ids)
-            #_logger.debug("res : {}".format(res))
+            # _logger.debug("res : {}".format(res))
             return res
         except Exception as e:
             _logger.error("An error occured in 'search_document' with args : %s" % sys.argv[1:])
             return []
-
 
     # Can be used where search record was used
     def list_document_get(self, cr, uid, model, name):
@@ -124,7 +127,8 @@ class plugin_handler(osv.osv_memory):
         mail_thread_obj = self.pool.get('mail.thread')
         msg = mail_thread_obj.message_parse(cr, uid, email)
         message_id = msg.get('message_id')
-        mail_ids = mail_message.search(cr, uid, [('message_id', '=', message_id), ('res_id', '=', res_id), ('model', '=', model)])
+        mail_ids = mail_message.search(cr, uid, [('message_id', '=', message_id), ('res_id', '=', res_id),
+                                                 ('model', '=', model)])
         if message_id and mail_ids:
             mail_record = mail_message.browse(cr, uid, mail_ids)[0]
             res_id = mail_record.res_id
@@ -140,9 +144,9 @@ class plugin_handler(osv.osv_memory):
             if not email_from:
                 author_id = False
             else:
-                #authors = mail_thread_obj.message_find_partner_from_emails(cr, uid, [res_id], [email_from])
+                # authors = mail_thread_obj.message_find_partner_from_emails(cr, uid, [res_id], [email_from])
                 authors = mail_thread_obj._find_partner_from_emails(cr, uid, [res_id], [email_from],
-                                                                     check_followers=False)
+                                                                    check_followers=False)
 
                 if isinstance(authors, list) and authors[0]:
                     author_id = authors[0]
@@ -150,14 +154,14 @@ class plugin_handler(osv.osv_memory):
                     author_id = False
 
             model_obj.message_post(cr, uid, [res_id],
-                            body=msg.get('body'),
-                            subject=msg.get('subject'),
-                            type='comment' if model == 'res.partner' else 'email',
-                            parent_id=msg.get('parent_id'),
-                            attachments=msg.get('attachments'),
-                            message_id=message_id,
-                            email_from=email_from,
-                            author_id=author_id)
+                                   body=msg.get('body'),
+                                   subject=msg.get('subject'),
+                                   type='comment' if model == 'res.partner' else 'email',
+                                   parent_id=msg.get('parent_id'),
+                                   attachments=msg.get('attachments'),
+                                   message_id=message_id,
+                                   email_from=email_from,
+                                   author_id=author_id)
             notify = _("Mail successfully pushed")
         url = self._make_url(cr, uid, res_id, model)
         return (model, res_id, url, notify)
@@ -185,9 +189,9 @@ class plugin_handler(osv.osv_memory):
         # ----------------------------------------
         # solution 1
         # construct a fake rfc822 from the separated arguement
-        #m = email.asdfsadf
+        # m = email.asdfsadf
         # use the push_message method
-        #self.push_message(m)
+        # self.push_message(m)
         # ----------------------------------------
         # solution 2
         # use self.pushmessage only with header and body
@@ -202,13 +206,16 @@ class plugin_handler(osv.osv_memory):
         model = push_mail[0]
         notify = push_mail[3]
         for name in attachments.keys():
-            attachment_ids = ir_attachment_obj.search(cr, uid, [('res_model', '=', model), ('res_id', '=', res_id), ('datas_fname', '=', name)])
+            attachment_ids = ir_attachment_obj.search(cr, uid, [('res_model', '=', model), ('res_id', '=', res_id),
+                                                                ('datas_fname', '=', name)])
             if attachment_ids:
                 attach_ids.append(attachment_ids[0])
             else:
-                vals = {"res_model": model, "res_id": res_id, "name": name, "datas": attachments[name], "datas_fname": name}
+                vals = {"res_model": model, "res_id": res_id, "name": name, "datas": attachments[name],
+                        "datas_fname": name}
                 attach_ids.append(ir_attachment_obj.create(cr, uid, vals))
-        mail_ids = mail_message.search(cr, uid, [('message_id', '=', message_id), ('res_id', '=', res_id), ('model', '=', model)])
+        mail_ids = mail_message.search(cr, uid, [('message_id', '=', message_id), ('res_id', '=', res_id),
+                                                 ('model', '=', model)])
         if mail_ids:
             mail_message.write(cr, uid, mail_ids[0], {'attachment_ids': [(6, 0, attach_ids)], 'body': body_html})
         url = self._make_url(cr, uid, res_id, model)
